@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مخطط التفوق - 4 أسابيع</title>
+    <title>مخطط التفوق التفاعلي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,30 +11,55 @@
             font-family: 'Tajawal', sans-serif;
             background: #0f172a;
             color: #f8fafc;
+            min-height: 100vh;
         }
         .card {
             background: rgba(30, 41, 59, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .card:hover {
-            transform: translateY(-5px);
             border-color: #38bdf8;
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.1);
         }
         .gradient-text {
             background: linear-gradient(90deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .status-badge {
-            font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            text-transform: uppercase;
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .difficulty-hard { color: #f87171; }
-        .difficulty-easy { color: #4ade80; }
+        .todo-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .todo-checkbox {
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 4px;
+            border: 2px solid #38bdf8;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .todo-item.completed .todo-checkbox {
+            background: #38bdf8;
+        }
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+        .progress-bar {
+            transition: width 0.5s ease-out;
+        }
         @media print {
             .no-print { display: none; }
         }
@@ -43,194 +68,321 @@
 <body class="p-4 md:p-8">
 
     <!-- Header Section -->
-    <div class="max-w-6xl mx-auto text-center mb-10">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 gradient-text">مخطط طريق التفوق 🚀</h1>
-        <p class="text-slate-400 text-lg">12 يوم من التركيز.. لنتيجة ترفع الراس!</p>
+    <div class="max-w-6xl mx-auto text-center mb-8">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 gradient-text">قائمة مهام التفوق 📝</h1>
+        <p class="text-slate-400 text-lg">اضغط على أي مهمة لإنجازها.. نظام حفظ تلقائي مفعل!</p>
         
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
-            <div class="bg-blue-900/30 px-4 py-2 rounded-full border border-blue-500/30 text-blue-400 text-sm">
-                🕒 3 أيام في الأسبوع (جمعة - سبت - ثلاثاء)
-            </div>
-            <div class="bg-purple-900/30 px-4 py-2 rounded-full border border-purple-500/30 text-purple-400 text-sm">
-                📚 5 مواد دراسية
-            </div>
-            <div class="bg-green-900/30 px-4 py-2 rounded-full border border-green-500/30 text-green-400 text-sm">
-                🎯 هدفنا: 100% إن شاء الله
-            </div>
+        <!-- Overall Progress -->
+        <div class="max-w-md mx-auto mt-6 bg-slate-800/50 rounded-full h-4 overflow-hidden border border-slate-700">
+            <div id="overallProgress" class="progress-bar h-full bg-gradient-to-r from-blue-500 to-purple-500" style="width: 0%"></div>
         </div>
+        <p id="progressText" class="mt-2 text-sm text-blue-400 font-bold">نسبة الإنجاز الكلي: 0%</p>
     </div>
 
     <!-- Main Schedule Grid -->
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="todoContainer">
         <!-- Week 1 -->
         <div class="space-y-4">
-            <h2 class="text-xl font-bold border-r-4 border-blue-500 pr-3 mb-4">الأسبوع 1: البداية القوية</h2>
+            <h2 class="text-xl font-bold border-r-4 border-blue-500 pr-3 mb-4 flex justify-between items-center">
+                <span>الأسبوع 1</span>
+                <span class="text-xs font-normal text-slate-500">البداية القوية</span>
+            </h2>
             
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-blue-400">الجمعة</span>
-                    <span class="status-badge bg-red-900/40 text-red-400">تأسيس</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
-                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 1&2 + Ch.1</p>
-                </div>
-            </div>
-
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-blue-400">السبت</span>
-                    <span class="status-badge bg-blue-900/40 text-blue-400">بناء</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> وحدة جبر 1</p>
-                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> 2 درس + 2 نص + 2 نحو</p>
+            <div class="card p-5 rounded-2xl" data-day="w1d1">
+                <p class="font-bold text-blue-400 mb-3 border-b border-slate-700 pb-2 italic">الجمعة - تأسيس</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🧪 ساينس: 2 درس أولى</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇬🇧 إنجليزي: Unit 1 & 2</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📖 إنجليزي: شابتر 1 قصة</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-blue-400">الثلاثاء</span>
-                    <span class="status-badge bg-green-900/40 text-green-400">توازن</span>
+            <div class="card p-5 rounded-2xl" data-day="w1d2">
+                <p class="font-bold text-blue-400 mb-3 border-b border-slate-700 pb-2 italic">السبت - بناء</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📐 ماث: وحدة جبر أولى</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇪🇬 عربي: 2 درس قراءة</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">✍️ عربي: 2 نص + 2 نحو</span>
+                    </div>
                 </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 2 جغرافيا + 2 تاريخ</p>
-                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 3&4 + Ch.2</p>
+            </div>
+
+            <div class="card p-5 rounded-2xl" data-day="w1d3">
+                <p class="font-bold text-blue-400 mb-3 border-b border-slate-700 pb-2 italic">الثلاثاء - توازن</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🌍 دراسات: 2 جغرافيا</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📜 دراسات: 2 تاريخ</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇬🇧 إنجليزي: Unit 3 & 4 + Ch.2</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Week 2 -->
         <div class="space-y-4">
-            <h2 class="text-xl font-bold border-r-4 border-purple-500 pr-3 mb-4">الأسبوع 2: التعمق</h2>
+            <h2 class="text-xl font-bold border-r-4 border-purple-500 pr-3 mb-4 flex justify-between items-center">
+                <span>الأسبوع 2</span>
+                <span class="text-xs font-normal text-slate-500">التعمق</span>
+            </h2>
             
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-purple-400">الجمعة</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
-                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> 2 درس + 2 نص + 2 نحو</p>
-                </div>
-            </div>
-
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-purple-400">السبت</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> وحدة هندسة 1</p>
-                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 2 جغرافيا + 2 تاريخ</p>
+            <div class="card p-5 rounded-2xl" data-day="w2d1">
+                <p class="font-bold text-purple-400 mb-3 border-b border-slate-700 pb-2 italic">الجمعة</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🧪 ساينس: 2 درس (3 & 4)</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇪🇬 عربي: 2 درس + 2 نص + 2 نحو</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-purple-400">الثلاثاء</span>
+            <div class="card p-5 rounded-2xl" data-day="w2d2">
+                <p class="font-bold text-purple-400 mb-3 border-b border-slate-700 pb-2 italic">السبت</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📐 ماث: وحدة هندسة أولى</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🌍 دراسات: 2 جغرافيا + 2 تاريخ</span>
+                    </div>
                 </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
-                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 5&6 + باقي القصة</p>
+            </div>
+
+            <div class="card p-5 rounded-2xl" data-day="w2d3">
+                <p class="font-bold text-purple-400 mb-3 border-b border-slate-700 pb-2 italic">الثلاثاء</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🧪 ساينس: 2 درس (5 & 6)</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇬🇧 إنجليزي: Unit 5 & 6 + باقي القصة</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Week 3 -->
         <div class="space-y-4">
-            <h2 class="text-xl font-bold border-r-4 border-yellow-500 pr-3 mb-4">الأسبوع 3: التقفيل</h2>
+            <h2 class="text-xl font-bold border-r-4 border-yellow-500 pr-3 mb-4 flex justify-between items-center">
+                <span>الأسبوع 3</span>
+                <span class="text-xs font-normal text-slate-500">التقفيل</span>
+            </h2>
             
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-yellow-400">الجمعة</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> باقي الجبر</p>
-                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> آخر قراءة + 2 نص + 2 نحو</p>
-                </div>
-            </div>
-
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-yellow-400">السبت</span>
-                </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 3 جغرافيا + 3 تاريخ</p>
-                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> آخر درس</p>
+            <div class="card p-5 rounded-2xl" data-day="w3d1">
+                <p class="font-bold text-yellow-400 mb-3 border-b border-slate-700 pb-2 italic">الجمعة</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📐 ماث: تقفيل الجبر</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🇪🇬 عربي: آخر دروس المنهج</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="card p-4 rounded-2xl">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-yellow-400">الثلاثاء</span>
+            <div class="card p-5 rounded-2xl" data-day="w3d2">
+                <p class="font-bold text-yellow-400 mb-3 border-b border-slate-700 pb-2 italic">السبت</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🌍 دراسات: آخر 3 جغرافيا + 3 تاريخ</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">🧪 ساينس: تقفيل آخر درس</span>
+                    </div>
                 </div>
-                <div class="text-sm space-y-2">
-                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> باقي الهندسة</p>
-                    <p class="text-slate-200">✨ <span class="font-bold">مراجعة:</span> مراجعة تريكات الإنجليزي</p>
+            </div>
+
+            <div class="card p-5 rounded-2xl" data-day="w3d3">
+                <p class="font-bold text-yellow-400 mb-3 border-b border-slate-700 pb-2 italic">الثلاثاء</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">📐 ماث: تقفيل الهندسة</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text">✨ مراجعة: تريكات الإنجليزي</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Week 4 -->
         <div class="space-y-4">
-            <h2 class="text-xl font-bold border-r-4 border-red-500 pr-3 mb-4">الأسبوع 4: وضع الوحش</h2>
+            <h2 class="text-xl font-bold border-r-4 border-red-500 pr-3 mb-4 flex justify-between items-center">
+                <span>الأسبوع 4</span>
+                <span class="text-xs font-normal text-slate-500">وضع الوحش</span>
+            </h2>
             
-            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-red-400">الجمعة</span>
-                    <span class="status-badge bg-red-500 text-white animate-pulse">هام</span>
-                </div>
-                <div class="text-sm space-y-2 italic">
-                    <p class="text-slate-200">🏆 حل 3 امتحانات شاملة</p>
-                    <p class="text-red-300">(ساينس + ماث)</p>
-                </div>
-            </div>
-
-            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-red-400">السبت</span>
-                </div>
-                <div class="text-sm space-y-2 italic">
-                    <p class="text-slate-200">🏆 حل 3 امتحانات شاملة</p>
-                    <p class="text-red-300">(عربي + دراسات)</p>
+            <div class="card p-5 rounded-2xl bg-red-900/10 border-red-500/30" data-day="w4d1">
+                <p class="font-bold text-red-400 mb-3 border-b border-red-500/20 pb-2 italic text-center">الجمعة - تحدي</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">🏆 حل 3 امتحانات ساينس</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">🏆 حل 3 امتحانات ماث</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="font-bold text-red-400">الثلاثاء</span>
+            <div class="card p-5 rounded-2xl bg-red-900/10 border-red-500/30" data-day="w4d2">
+                <p class="font-bold text-red-400 mb-3 border-b border-red-500/20 pb-2 italic text-center">السبت - تحدي</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">🏆 حل 3 امتحانات عربي</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">🏆 حل 3 امتحانات دراسات</span>
+                    </div>
                 </div>
-                <div class="text-sm space-y-2 italic">
-                    <p class="text-slate-200">🏆 حل امتحانات إنجليزي</p>
-                    <p class="text-red-300">مراجعة القوانين النهائية</p>
+            </div>
+
+            <div class="card p-5 rounded-2xl bg-red-900/10 border-red-500/30" data-day="w4d3">
+                <p class="font-bold text-red-400 mb-3 border-b border-red-500/20 pb-2 italic text-center">الثلاثاء - الختام</p>
+                <div class="space-y-2">
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">🏆 حل امتحانات إنجليزي</span>
+                    </div>
+                    <div class="todo-item" onclick="toggleTask(this)">
+                        <div class="todo-checkbox"></div>
+                        <span class="todo-text font-bold">⚡ مراجعة القوانين النهائية</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tips Section -->
-    <div class="max-w-6xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 no-print">
-        <div class="bg-blue-500/10 p-5 rounded-2xl border border-blue-500/20">
-            <h3 class="font-bold text-blue-400 mb-2">💡 قاعدة الـ 50 دقيقة</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">ذاكر 50 دقيقة بتركيز تام وافصل 10 دقايق بعيد عن الشاشات. كرر ده 3 مرات في الجلسة الواحدة.</p>
-        </div>
-        <div class="bg-red-500/10 p-5 rounded-2xl border border-red-500/20">
-            <h3 class="font-bold text-red-400 mb-2">⚖️ ميزان المواد</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">لاحظ إننا حطينا (الساينس الصعب) مع (الإنجليزي السهل) عشان طاقتك ما تخلصش في نص اليوم.</p>
-        </div>
-        <div class="bg-green-500/10 p-5 rounded-2xl border border-green-500/20">
-            <h3 class="font-bold text-green-400 mb-2">🔥 سر الـ 95%</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">الحل الكتير في الأسبوع الرابع هو اللي بيثبت المعلومة. ما تضيعش يوم واحد في الأسبوع ده!</p>
-        </div>
-    </div>
-
-    <!-- Footer Action -->
-    <div class="text-center mt-12 no-print">
-        <p class="text-slate-500 mb-4">التصميم جاهز للسكرين شوت 📸</p>
-        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-blue-500/20">
-            حفظ كـ PDF أو طباعة 🖨️
+    <!-- Actions -->
+    <div class="max-w-6xl mx-auto mt-10 text-center flex flex-wrap justify-center gap-4 no-print">
+        <button onclick="resetTasks()" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-2 rounded-xl transition-all border border-slate-500/30">
+            إعادة تعيين القائمة 🔄
+        </button>
+        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20">
+            طباعة الخطة 🖨️
         </button>
     </div>
 
+    <script>
+        // Unique key for storage
+        const STORAGE_KEY = 'study_planner_tasks';
+
+        // Initialize state on load
+        window.onload = function() {
+            loadTasks();
+            updateProgress();
+        };
+
+        function toggleTask(element) {
+            element.classList.toggle('completed');
+            saveTasks();
+            updateProgress();
+            
+            // Add a little celebration if all tasks in a card are done
+            checkCardCompletion(element.closest('.card'));
+        }
+
+        function saveTasks() {
+            const tasks = [];
+            document.querySelectorAll('.todo-item').forEach((item, index) => {
+                tasks.push({
+                    id: index,
+                    completed: item.classList.contains('completed')
+                });
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const tasks = JSON.parse(saved);
+                const items = document.querySelectorAll('.todo-item');
+                tasks.forEach(task => {
+                    if (items[task.id]) {
+                        if (task.completed) items[task.id].classList.add('completed');
+                    }
+                });
+            }
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.todo-item').length;
+            const completed = document.querySelectorAll('.todo-item.completed').length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('overallProgress').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = `نسبة الإنجاز الكلي: ${percentage}%`;
+            
+            if (percentage === 100) {
+                document.getElementById('progressText').innerText = `ألف مبروك! أنت مستعد للامتحان بنسبة 100% 🏆`;
+                document.getElementById('progressText').classList.replace('text-blue-400', 'text-green-400');
+            }
+        }
+
+        function resetTasks() {
+            if (confirm('هل أنت متأكد من إعادة تعيين جميع المهام؟')) {
+                document.querySelectorAll('.todo-item').forEach(item => {
+                    item.classList.remove('completed');
+                });
+                saveTasks();
+                updateProgress();
+            }
+        }
+
+        function checkCardCompletion(card) {
+            const totalInCard = card.querySelectorAll('.todo-item').length;
+            const doneInCard = card.querySelectorAll('.todo-item.completed').length;
+            
+            if (totalInCard === doneInCard) {
+                card.style.borderColor = '#4ade80';
+                card.style.background = 'rgba(20, 83, 45, 0.2)';
+            } else {
+                card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                card.style.background = 'rgba(30, 41, 59, 0.7)';
+            }
+        }
+    </script>
 </body>
 </html>
