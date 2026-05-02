@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخطط التفوق - 4 أسابيع</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .status-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+        .difficulty-hard { color: #f87171; }
+        .difficulty-easy { color: #4ade80; }
+        @media print {
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <div class="max-w-6xl mx-auto text-center mb-10">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 gradient-text">مخطط طريق التفوق 🚀</h1>
+        <p class="text-slate-400 text-lg">12 يوم من التركيز.. لنتيجة ترفع الراس!</p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mt-6">
+            <div class="bg-blue-900/30 px-4 py-2 rounded-full border border-blue-500/30 text-blue-400 text-sm">
+                🕒 3 أيام في الأسبوع (جمعة - سبت - ثلاثاء)
+            </div>
+            <div class="bg-purple-900/30 px-4 py-2 rounded-full border border-purple-500/30 text-purple-400 text-sm">
+                📚 5 مواد دراسية
+            </div>
+            <div class="bg-green-900/30 px-4 py-2 rounded-full border border-green-500/30 text-green-400 text-sm">
+                🎯 هدفنا: 100% إن شاء الله
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Schedule Grid -->
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Week 1 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold border-r-4 border-blue-500 pr-3 mb-4">الأسبوع 1: البداية القوية</h2>
+            
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-blue-400">الجمعة</span>
+                    <span class="status-badge bg-red-900/40 text-red-400">تأسيس</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
+                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 1&2 + Ch.1</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-blue-400">السبت</span>
+                    <span class="status-badge bg-blue-900/40 text-blue-400">بناء</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> وحدة جبر 1</p>
+                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> 2 درس + 2 نص + 2 نحو</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-blue-400">الثلاثاء</span>
+                    <span class="status-badge bg-green-900/40 text-green-400">توازن</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 2 جغرافيا + 2 تاريخ</p>
+                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 3&4 + Ch.2</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 2 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold border-r-4 border-purple-500 pr-3 mb-4">الأسبوع 2: التعمق</h2>
+            
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-purple-400">الجمعة</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
+                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> 2 درس + 2 نص + 2 نحو</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-purple-400">السبت</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> وحدة هندسة 1</p>
+                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 2 جغرافيا + 2 تاريخ</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-purple-400">الثلاثاء</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> 2 درس</p>
+                    <p class="text-slate-200">🇬🇧 <span class="font-bold">إنجليزي:</span> Units 5&6 + باقي القصة</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 3 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold border-r-4 border-yellow-500 pr-3 mb-4">الأسبوع 3: التقفيل</h2>
+            
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-yellow-400">الجمعة</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> باقي الجبر</p>
+                    <p class="text-slate-200">🇪🇬 <span class="font-bold">عربي:</span> آخر قراءة + 2 نص + 2 نحو</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-yellow-400">السبت</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">🌍 <span class="font-bold">دراسات:</span> 3 جغرافيا + 3 تاريخ</p>
+                    <p class="text-slate-200">🧪 <span class="font-bold">ساينس:</span> آخر درس</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-yellow-400">الثلاثاء</span>
+                </div>
+                <div class="text-sm space-y-2">
+                    <p class="text-slate-200">📐 <span class="font-bold">ماث:</span> باقي الهندسة</p>
+                    <p class="text-slate-200">✨ <span class="font-bold">مراجعة:</span> مراجعة تريكات الإنجليزي</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 4 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold border-r-4 border-red-500 pr-3 mb-4">الأسبوع 4: وضع الوحش</h2>
+            
+            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-red-400">الجمعة</span>
+                    <span class="status-badge bg-red-500 text-white animate-pulse">هام</span>
+                </div>
+                <div class="text-sm space-y-2 italic">
+                    <p class="text-slate-200">🏆 حل 3 امتحانات شاملة</p>
+                    <p class="text-red-300">(ساينس + ماث)</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-red-400">السبت</span>
+                </div>
+                <div class="text-sm space-y-2 italic">
+                    <p class="text-slate-200">🏆 حل 3 امتحانات شاملة</p>
+                    <p class="text-red-300">(عربي + دراسات)</p>
+                </div>
+            </div>
+
+            <div class="card p-4 rounded-2xl bg-red-900/20 border-red-500/50">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-red-400">الثلاثاء</span>
+                </div>
+                <div class="text-sm space-y-2 italic">
+                    <p class="text-slate-200">🏆 حل امتحانات إنجليزي</p>
+                    <p class="text-red-300">مراجعة القوانين النهائية</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="max-w-6xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 no-print">
+        <div class="bg-blue-500/10 p-5 rounded-2xl border border-blue-500/20">
+            <h3 class="font-bold text-blue-400 mb-2">💡 قاعدة الـ 50 دقيقة</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">ذاكر 50 دقيقة بتركيز تام وافصل 10 دقايق بعيد عن الشاشات. كرر ده 3 مرات في الجلسة الواحدة.</p>
+        </div>
+        <div class="bg-red-500/10 p-5 rounded-2xl border border-red-500/20">
+            <h3 class="font-bold text-red-400 mb-2">⚖️ ميزان المواد</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">لاحظ إننا حطينا (الساينس الصعب) مع (الإنجليزي السهل) عشان طاقتك ما تخلصش في نص اليوم.</p>
+        </div>
+        <div class="bg-green-500/10 p-5 rounded-2xl border border-green-500/20">
+            <h3 class="font-bold text-green-400 mb-2">🔥 سر الـ 95%</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">الحل الكتير في الأسبوع الرابع هو اللي بيثبت المعلومة. ما تضيعش يوم واحد في الأسبوع ده!</p>
+        </div>
+    </div>
+
+    <!-- Footer Action -->
+    <div class="text-center mt-12 no-print">
+        <p class="text-slate-500 mb-4">التصميم جاهز للسكرين شوت 📸</p>
+        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-blue-500/20">
+            حفظ كـ PDF أو طباعة 🖨️
+        </button>
+    </div>
+
+</body>
+</html>
